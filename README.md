@@ -1,2 +1,2 @@
 # javascript_novice_to_ninja
-sitepoint book Javascript novice to ninja
+Sitepoint book Javascript Novice To Ninja
