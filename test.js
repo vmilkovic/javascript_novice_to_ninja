@@ -1,6 +1,7 @@
-const form = document.forms['search'];
-form.addEventListener ('submit', search, false)
-
-function search() {
-alert(' Form Submitted');
+const cookies = document.cookie.split("; ");
+console.log(cookies);
+for (crumb of cookies){
+const [key,value] = crumb.split("=");
+console.log(key, value)
+console.log(`The value of ${key} is ${value}`);
 }
