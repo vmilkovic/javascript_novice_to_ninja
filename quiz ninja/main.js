@@ -13,6 +13,7 @@ const view = {
     info: document.getElementById('info'),
     start: document.getElementById('start'),
     response: document.querySelector('#response'),
+    timer: document.querySelector('#timer strong'),
     render(target, content, attributes){
         for(const key in attributes){
             target.setAttribute(key, attributes[key]);
@@ -49,9 +50,18 @@ const view = {
 const game = {
     start(quiz){
         this.score = 0;
+        this.secondsRemaining = 20;
+        this.timer = setInterval( this.countdown, 1000);
         this.questions = [...quiz];
         view.setup();
         this.ask();
+    },
+    countdown(){
+        game.secondsRemaining--;
+        view.render(view.timer, game.secondsRemaining);
+        if(game.secondsRemaining < 0){
+            game.gameOver();
+        }
     },
     ask(){
         if(this.questions.length > 0){
@@ -81,9 +91,9 @@ const game = {
         view.show(view.start);
         view.render(view.info, `Game Over, you score ${this.score} point${this.score !== 1 ? 's' : ''}`)
         view.teardown();
+        clearInterval(this.timer);
     }
 }
 
 view.start.addEventListener('click', () => game.start(quiz), false);
 view.response.addEventListener('submit', (event) => game.check(event), false);
-view.hide(view.response);

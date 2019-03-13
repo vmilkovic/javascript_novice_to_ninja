@@ -1,7 +1,9 @@
-const cookies = document.cookie.split("; ");
-console.log(cookies);
-for (crumb of cookies){
-const [key,value] = crumb.split("=");
-console.log(key, value)
-console.log(`The value of ${key} is ${value}`);
+function squareRoot(number) {
+'use strict';
+if (number < 0) {
+throw new RangeError('You cannot find the square root of negative numbers')
 }
+return Math.sqrt(number);
+};
+
+squareRoot(-1);
