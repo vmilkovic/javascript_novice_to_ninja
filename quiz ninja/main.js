@@ -1,3 +1,12 @@
+const url = "https://raw.githubusercontent.com/spbooks/jsninja2/master/questions.json";
+
+fetch(url)
+    .then(res => res.json())
+    .then(quiz => {
+        view.start.addEventListener('click', () => game.start(quiz.questions), false)
+        view.response.addEventListener('click', (event) => game.check(event), false);
+    });
+
 function random(a, b=1){
     if(b === 1){
         [a,b] = [b,a]
@@ -11,15 +20,6 @@ function shuffle(array){
         [array[i-1], array[j]] = [array[j], array[i-1]];
     }
 }
-
-const quiz = [
-    { name: "Superman", realName: "Clark Kent" },
-    { name: "Wonder Woman", realName: "Diana Prince" },
-    { name: "Batman", realName: "Bruce Wayne" },
-    { name: "The Hulk", realName: "Bruce Banner" },
-    { name: "Spider-man", realName: "Peter Parker" },
-    { name: "Cyclops", realName: "Scott Summers" }
-];
 
 // View Object
 
@@ -116,6 +116,3 @@ const game = {
         clearInterval(this.timer);
     }
 }
-
-view.start.addEventListener('click', () => game.start(quiz), false);
-view.response.addEventListener('click', (event) => game.check(event), false);
