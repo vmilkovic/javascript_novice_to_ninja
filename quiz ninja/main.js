@@ -31,6 +31,7 @@ const view = {
     start: document.getElementById('start'),
     response: document.querySelector('#response'),
     timer: document.querySelector('#timer strong'),
+    hiScore: document.querySelector('#hiScore strong'),
     render(target, content, attributes){
         for(const key in attributes){
             target.setAttribute(key, attributes[key]);
@@ -51,11 +52,13 @@ const view = {
         this.render(this.score, game.score);
         this.render(this.result, '');
         this.render(this.info,'');
+        this.render(this.hiScore, game.hiScore())
     },
     teardown(){
         this.hide(this.question);
         this.hide(this.response);
         this.show(this.start);
+        this.render(this.hiScore, game.hiScore())
     },
     buttons(array){
         return array.map(value =>
@@ -114,5 +117,13 @@ const game = {
         view.render(view.info, `Game Over, you score ${this.score} point${this.score !== 1 ? 's' : ''}`)
         view.teardown();
         clearInterval(this.timer);
+    },
+    hiScore(){
+        const hi = localStorage.getItem('highScore') || 0;
+        if(this.score > hi || hi === 0) {
+            localStorage.setItem('highScore',this.score);
+            view.render(view.info,'** NEW HIGH SCORE! **');
+        }
+        return localStorage.getItem('highScore');
     }
 }
