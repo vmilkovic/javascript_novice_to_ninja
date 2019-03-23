@@ -1,3 +1,6 @@
 *.pdf
 *.zip
 /jsninja2-master
+/project-x/node_modules
+/webpack-example/node_modules
+/quiz/node_modules
